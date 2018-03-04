@@ -24,3 +24,7 @@ Homestead.json
 .idea/modules.xml
 .idea/vcs.xml
 .idea/workspace.xml
+.env.example
+public/favicon.ico
+public/js/app.js
+storage/
