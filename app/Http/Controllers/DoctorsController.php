@@ -18,7 +18,7 @@ class DoctorsController extends Controller
         $doctors = [];
         $doctor = new Doctor();
         $city = new City();
-        $city = $city->where('name', $cityName)->first();
+        $city = $city->findByName($cityName);
         if (!empty($city)) {
             $doctors = $doctor->DoctorsByCity($city->id);
         }
@@ -31,29 +31,42 @@ class DoctorsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($cityName)
     {
-        //
+        if (auth()->user()->can('create', Doctor::class)) {
+            return view('doctors.create', compact('cityName'));
+        } else {
+            abort('403', 'Добавлять доктора может только администрация сайта');
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param $cityName
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store($cityName)
     {
-        //
+        $city = new City();
+        $data = request()->toArray();
+        $city = $city->findByName($cityName);
+        $data['city_id'] = $city->id;
+
+        $doctor = Doctor::create($data);
+
+        return redirect($doctor->path());
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource
      *
-     * @param  \App\Doctor  $doctor
-     * @return \Illuminate\Http\Response
+     * @param $cityName
+     * @param Doctor $doctor
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($cityId, Doctor $doctor)
+    public function show($cityName, Doctor $doctor)
     {
         $specialties = $doctor->specialties()->get();
 

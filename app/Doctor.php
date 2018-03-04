@@ -15,7 +15,7 @@ class Doctor extends Model
      */
     public function path()
     {
-        return '/doctors/' . $this->city->name . '/' . $this->id;
+        return '/' . $this->city->name . '/doctors/' . $this->id;
     }
 
     /**

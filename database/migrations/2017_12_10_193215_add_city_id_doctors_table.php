@@ -27,8 +27,8 @@ class AddCityIdDoctorsTable extends Migration
     public function down()
     {
         Schema::table('doctors', function (Blueprint $table) {
-            $table->dropColumn('city_id');
             $table->dropForeign('doctors_city_id_foreign');
+            $table->dropColumn('city_id');
         });
     }
 }

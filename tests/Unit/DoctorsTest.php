@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DoctorsTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     public function setUp()
     {
@@ -17,8 +17,12 @@ class DoctorsTest extends TestCase
     }
 
     /** @test */
-    public function a_doctor_has_specialties()
+    public function doctor_can_have_speciality()
     {
-        $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsToMany', $this->doctor->specialties());
+        $speciality = create('App\Speciality');
+        $this->doctor->specialties()->attach($speciality->id);
+
+        $this->get($this->doctor->path())
+            ->assertSee($speciality->name);
     }
 }

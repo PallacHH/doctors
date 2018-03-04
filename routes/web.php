@@ -14,10 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/doctors/{city}', 'DoctorsController@index');
-Route::get('/doctors/{city}/{doctor}', 'DoctorsController@show');
-
+Route::get('/{city}/doctors', 'DoctorsController@index');
+Route::get('/{city}/doctors/{doctor}', 'DoctorsController@show');
+Route::get('/{city}/doctor/create', 'DoctorsController@create')->middleware('auth');
+Route::post('/{city}/doctors', 'DoctorsController@store')->name('doctors.store');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
