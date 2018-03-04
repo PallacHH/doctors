@@ -3,11 +3,12 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CityTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
     
     /** @test */
     public function search_city_id_by_city_name()

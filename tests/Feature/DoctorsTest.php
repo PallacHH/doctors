@@ -3,11 +3,12 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class DoctorsTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function setUp()
     {
@@ -24,7 +25,7 @@ class DoctorsTest extends TestCase
         $doctorsCity = $doctor->city()->first();
         $this->get('/' . $doctorsCity->name . '/doctors/')
             ->assertSee($doctor->name)
-            ->assertDontSee($this->doctor->name);
+            ->assertDontSeeText($this->doctor->name);
 
     }
 

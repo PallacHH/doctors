@@ -14,7 +14,7 @@ class AddCityIdDoctorsTable extends Migration
     public function up()
     {
         Schema::table('doctors', function (Blueprint $table) {
-            $table->unsignedInteger('city_id');
+            $table->unsignedInteger('city_id')->default(0);
             $table->foreign('city_id')->references('id')->on('cities');
         });
     }
