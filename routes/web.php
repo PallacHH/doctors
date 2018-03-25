@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 Route::get('/{city}/doctors', 'DoctorsController@index');
 Route::get('/{city}/doctors/{doctor}', 'DoctorsController@show');
-Route::get('/{city}/doctor/create', 'DoctorsController@create')->middleware('auth');
+Route::get('/{city}/doctor/create', 'DoctorsController@create')->middleware('auth')->name('doctors.create');
 Route::post('/{city}/doctors', 'DoctorsController@store')->name('doctors.store');
 Auth::routes();
 

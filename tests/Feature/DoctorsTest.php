@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -38,8 +37,6 @@ class DoctorsTest extends TestCase
             ->assertSee($doctor->name);
     }
 
-
-
     /** @test */
     public function user_with_role_admin_can_see_create_doctor_page()
     {
@@ -53,10 +50,15 @@ class DoctorsTest extends TestCase
 
         $this->get($doctor->path())
             ->assertSee($doctor->name);
-        auth()->logout();
+    }
 
-        $notAdmin = create('App\User', ['role' => 'user']);
-        auth()->setUser($notAdmin);
+    /** @test */
+    public function not_admin_cannot_see_create_doctor_page()
+    {
+        $city = create('App\City', ['name' => 'Kiev']);
+        $user = create('App\User', ['role' => 'user']);
+
+        auth()->setUser($user);
         $this->get('/' . $city->name . '/doctor/create')
             ->assertStatus(403)
             ->assertSee('Добавлять доктора может только администрация сайта');

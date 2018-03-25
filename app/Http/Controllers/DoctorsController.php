@@ -23,7 +23,7 @@ class DoctorsController extends Controller
             $doctors = $doctor->DoctorsByCity($city->id);
         }
 
-        return view('doctors.index', compact('doctors'));
+        return view('doctors.index', compact('doctors', 'cityName'));
     }
 
     /**

@@ -4,6 +4,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+                <a href="{{ route('doctors.create', $cityName) }}" class="btn btn-primary">Добавить доктора</a>
+
                 <div class="panel panel-default">
                     <div class="panel-heading">Список докторов</div>
 
